@@ -11,8 +11,8 @@
 		<Company>Salvation</Company>
 		<Description>Volcanion.Core.Presentation</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageProjectUrl>https://github.com/rickymta</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/rickymta</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/rickymta/volcanion-core/tree/master/src/Volcanion.Core.Presentation</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/rickymta/volcanion-core/tree/master/src/Volcanion.Core.Presentation</RepositoryUrl>
 		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
 
