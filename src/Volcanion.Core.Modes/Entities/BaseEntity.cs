@@ -1,4 +1,4 @@
-﻿namespace Volcanion.Core.Infrastructure.Models.Entities;
+﻿namespace Volcanion.Core.Models.Entities;
 
 /// <summary>
 /// Base Entity

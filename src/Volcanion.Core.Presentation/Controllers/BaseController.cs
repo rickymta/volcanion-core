@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Volcanion.Core.Infrastructure.Models.Response;
+using Volcanion.Core.Models.Response;
 
 namespace Volcanion.Core.Presentation.Controllers;
 

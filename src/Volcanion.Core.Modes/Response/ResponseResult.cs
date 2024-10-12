@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Volcanion.Core.Infrastructure.Models.Response;
+namespace Volcanion.Core.Models.Response;
 
 public class ResponseResult
 {

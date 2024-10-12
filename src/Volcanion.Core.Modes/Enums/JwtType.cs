@@ -1,4 +1,4 @@
-﻿namespace Volcanion.Core.Infrastructure.Models.Enums;
+﻿namespace Volcanion.Core.Models.Enums;
 
 /// <summary>
 /// JwtType

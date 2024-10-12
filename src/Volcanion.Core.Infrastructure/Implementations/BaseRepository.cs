@@ -3,23 +3,24 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 using Volcanion.Core.Infrastructure.Abstractions;
-using Volcanion.Core.Infrastructure.Models.Context;
-using Volcanion.Core.Infrastructure.Models.Entities;
+using Volcanion.Core.Models.Entities;
 
 namespace Volcanion.Core.Infrastructure.Implementations;
 
 /// <summary>
 /// BaseRepository
 /// </summary>
-public class BaseRepository<T> : IGenericRepository<T> where T : BaseEntity
+public class BaseRepository<T, TContext> : IGenericRepository<T>
+    where T : BaseEntity
+    where TContext : DbContext
 {
-    protected readonly ApplicationDbContext _context;
+    protected readonly TContext _context;
 
     protected readonly IConfiguration _configuration;
 
-    protected readonly ILogger<BaseRepository<T>> _logger;
+    protected readonly ILogger<BaseRepository<T, TContext>> _logger;
 
-    public BaseRepository(ApplicationDbContext context, IConfiguration configuration, ILogger<BaseRepository<T>> logger)
+    public BaseRepository(TContext context, IConfiguration configuration, ILogger<BaseRepository<T, TContext>> logger)
     {
         _context = context;
         _configuration = configuration;

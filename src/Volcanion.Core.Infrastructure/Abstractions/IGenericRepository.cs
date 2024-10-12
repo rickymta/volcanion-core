@@ -1,4 +1,4 @@
-using Volcanion.Core.Infrastructure.Models.Entities;
+using Volcanion.Core.Models.Entities;
 
 namespace Volcanion.Core.Infrastructure.Abstractions;
 

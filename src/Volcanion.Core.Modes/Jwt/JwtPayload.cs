@@ -1,4 +1,4 @@
-﻿namespace Volcanion.Core.Infrastructure.Models.Jwt;
+﻿namespace Volcanion.Core.Models.Jwt;
 
 /// <summary>
 /// JwtPayload
