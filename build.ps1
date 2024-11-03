@@ -1,9 +1,14 @@
 ## MUST CHANGE VERSION OF PACKAGE HERE
-$packageVersion = "1.0.0"
+param (
+    [string]$version = "1.0.0",
+    [string]$url = "http://192.168.1.127:5000/v3/index.json"
+)
+
+$packageVersion = $version
 $packageSuffix = ".nupkg"
 
 # base command
-$baseCommand = "dotnet nuget push -s http://192.168.1.127:5000/v3/index.json "
+$baseCommand = "dotnet nuget push -s $url "
 
 # build command
 $buildCommand = "dotnet build"

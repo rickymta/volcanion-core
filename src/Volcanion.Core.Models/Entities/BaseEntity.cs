@@ -16,6 +16,11 @@ public class BaseEntity
     public bool IsActived { get; set; }
 
     /// <summary>
+    /// IsDeleted
+    /// </summary>
+    public bool IsDeleted { get; set; }
+
+    /// <summary>
     /// CreatedAt
     /// </summary>
     public DateTime CreatedAt { get; set; }
@@ -44,9 +49,4 @@ public class BaseEntity
     /// DeletedId
     /// </summary>
     public string? DeletedBy { get; set; }
-
-    /// <summary>
-    /// IsDeleted
-    /// </summary>
-    public bool IsDeleted { get; set; }
 }

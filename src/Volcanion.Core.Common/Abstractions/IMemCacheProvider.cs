@@ -1,4 +1,5 @@
 ﻿namespace Volcanion.Core.Common.Abstractions;
+
 /// <summary>
 /// ICacheProvider
 /// </summary>

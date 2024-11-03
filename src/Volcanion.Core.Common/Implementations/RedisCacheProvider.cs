@@ -4,62 +4,59 @@ using System.Text.Json;
 using Volcanion.Core.Common.Abstractions;
 using Volcanion.Core.Common.Models.Redis;
 
-namespace Volcanion.Core.Common.Implementations
+namespace Volcanion.Core.Common.Implementations;
+
+/// <inheritdoc/>
+public class RedisCacheProvider : IRedisCacheProvider
 {
     /// <summary>
-    /// RedisCacheProvider
+    /// IDistributedCache
     /// </summary>
-    public class RedisCacheProvider : IRedisCacheProvider
+    private readonly IDistributedCache _cache;
+
+    /// <summary>
+    /// RedisOptions
+    /// </summary>
+    private readonly IOptionsMonitor<RedisOptions> _redisOptionsMonitor;
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    /// <param name="cache"></param>
+    /// <param name="redisOptionsMonitor"></param>
+    public RedisCacheProvider(IDistributedCache cache, IOptionsMonitor<RedisOptions> redisOptionsMonitor)
     {
-        /// <summary>
-        /// IDistributedCache
-        /// </summary>
-        private readonly IDistributedCache _cache;
+        _cache = cache;
+        _redisOptionsMonitor = redisOptionsMonitor;
+    }
 
-        /// <summary>
-        /// RedisOptions
-        /// </summary>
-        private readonly IOptionsMonitor<RedisOptions> _redisOptionsMonitor;
+    /// <inheritdoc/>
+    public async Task<T> GetCacheAsync<T>(string key)
+    {
+        var jsonData = await _cache.GetStringAsync(key);
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="cache"></param>
-        /// <param name="redisOptionsMonitor"></param>
-        public RedisCacheProvider(IDistributedCache cache, IOptionsMonitor<RedisOptions> redisOptionsMonitor)
+        if (jsonData is null)
         {
-            _cache = cache;
-            _redisOptionsMonitor = redisOptionsMonitor;
+            return default;
         }
 
-        /// <inheritdoc/>
-        public async Task<T> GetCacheAsync<T>(string key)
+        return JsonSerializer.Deserialize<T>(jsonData);
+    }
+
+    /// <inheritdoc/>
+    public async Task<T> SetCacheAsync<T>(string key, T value)
+    {
+        var optionsCache = _redisOptionsMonitor.CurrentValue;
+        var options = new DistributedCacheEntryOptions
         {
-            var jsonData = await _cache.GetStringAsync(key);
+            AbsoluteExpirationRelativeToNow = optionsCache.AbsoluteExpireTime,
+            SlidingExpiration = optionsCache.SlidingExpireTime
+        };
 
-            if (jsonData is null)
-            {
-                return default;
-            }
+        var jsonData = JsonSerializer.Serialize(value);
 
-            return JsonSerializer.Deserialize<T>(jsonData);
-        }
+        await _cache.SetStringAsync(key, jsonData, options);
 
-        /// <inheritdoc/>
-        public async Task<T> SetCacheAsync<T>(string key, T value)
-        {
-            var optionsCache = _redisOptionsMonitor.CurrentValue;
-            var options = new DistributedCacheEntryOptions
-            {
-                AbsoluteExpirationRelativeToNow = optionsCache.AbsoluteExpireTime,
-                SlidingExpiration = optionsCache.SlidingExpireTime
-            };
-
-            var jsonData = JsonSerializer.Serialize(value);
-
-            await _cache.SetStringAsync(key, jsonData, options);
-
-            return value;
-        }
+        return value;
     }
 }

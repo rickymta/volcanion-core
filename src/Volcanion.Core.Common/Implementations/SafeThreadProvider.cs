@@ -1,50 +1,41 @@
 ﻿using System.Collections.Concurrent;
 using Volcanion.Core.Common.Abstractions;
 
-namespace Volcanion.Core.Common.Implementations
+namespace Volcanion.Core.Common.Implementations;
+
+/// <inheritdoc/>
+public class SafeThreadProvider : ISafeThreadProvider
 {
     /// <summary>
-    /// SafeThreadProvider
+    /// ListPool
     /// </summary>
-    public class SafeThreadProvider : ISafeThreadProvider
+    private IDictionary<int, Semaphore> ListPool { get; set; }
+
+    /// <summary>
+    /// Constructor
+    /// </summary>
+    public SafeThreadProvider()
     {
-        /// <summary>
-        /// ListPool
-        /// </summary>
-        private IDictionary<int, Semaphore> ListPool { get; set; }
+        ListPool = new ConcurrentDictionary<int, Semaphore>();
+    }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        public SafeThreadProvider()
+    /// <inheritdoc/>
+    public void WaitOne(int id)
+    {
+        ListPool.TryGetValue(id, out var pool);
+
+        if (pool == null)
         {
-            ListPool = new ConcurrentDictionary<int, Semaphore>();
+            pool = new Semaphore(1, 1);
+            ListPool.Add(new KeyValuePair<int, Semaphore>(id, pool));
         }
 
-        /// <summary>
-        /// WaitOne
-        /// </summary>
-        /// <param name="id"></param>
-        public void WaitOne(int id)
-        {
-            ListPool.TryGetValue(id, out var pool);
+        ListPool[id].WaitOne();
+    }
 
-            if (pool == null)
-            {
-                pool = new Semaphore(1, 1);
-                ListPool.Add(new KeyValuePair<int, Semaphore>(id, pool));
-            }
-
-            ListPool[id].WaitOne();
-        }
-
-        /// <summary>
-        /// Release
-        /// </summary>
-        /// <param name="id"></param>
-        public void Release(int id)
-        {
-            ListPool[id].Release();
-        }
+    /// <inheritdoc/>
+    public void Release(int id)
+    {
+        ListPool[id].Release();
     }
 }
