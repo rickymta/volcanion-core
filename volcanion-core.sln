@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Presentation
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Models", "src\Volcanion_Core_Models\Volcanion_Core_Models.csproj", "{C5B2C7AA-47D2-4925-87B9-6E2115A24741}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Handlers", "src\Volcanion_Core_Handler\Volcanion_Core_Handlers.csproj", "{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Services", "src\Volcanion_Core_Services\Volcanion_Core_Services.csproj", "{7A56AB4C-643D-4A64-ABB7-DDA54816FC6F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_CommonTest", "test\Volcanion_Core_CommonTest\Volcanion_Core_CommonTest.csproj", "{D10B06FB-7F77-4792-8E8A-55BF9E2407CE}"
@@ -24,6 +22,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_InfrastructureTest", "test\Volcanion_Core_InfrastructureTest\Volcanion_Core_InfrastructureTest.csproj", "{182890D1-5497-479F-938C-30B4921A587E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_PresentationTest", "test\Volcanion_Core_PresentationTest\Volcanion_Core_PresentationTest.csproj", "{8CDE2783-51C2-4AB0-8C88-C92667C1124B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Handlers", "src\Volcanion_Core_Handlers\Volcanion_Core_Handlers.csproj", "{E22D1C35-ED2F-4D4D-B8A3-0AFF4B959701}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,6 @@ Global
 		{C5B2C7AA-47D2-4925-87B9-6E2115A24741}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5B2C7AA-47D2-4925-87B9-6E2115A24741}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5B2C7AA-47D2-4925-87B9-6E2115A24741}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7A56AB4C-643D-4A64-ABB7-DDA54816FC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7A56AB4C-643D-4A64-ABB7-DDA54816FC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A56AB4C-643D-4A64-ABB7-DDA54816FC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,6 +63,10 @@ Global
 		{8CDE2783-51C2-4AB0-8C88-C92667C1124B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CDE2783-51C2-4AB0-8C88-C92667C1124B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CDE2783-51C2-4AB0-8C88-C92667C1124B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E22D1C35-ED2F-4D4D-B8A3-0AFF4B959701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E22D1C35-ED2F-4D4D-B8A3-0AFF4B959701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E22D1C35-ED2F-4D4D-B8A3-0AFF4B959701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E22D1C35-ED2F-4D4D-B8A3-0AFF4B959701}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,11 +76,11 @@ Global
 		{9C6273AB-FD3B-4809-BBF0-7D3A52FA716F} = {022AD844-2530-4E90-AF64-5614C3C28D42}
 		{A26267A9-B273-4996-A8D3-C12662F068F4} = {022AD844-2530-4E90-AF64-5614C3C28D42}
 		{C5B2C7AA-47D2-4925-87B9-6E2115A24741} = {022AD844-2530-4E90-AF64-5614C3C28D42}
-		{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE} = {022AD844-2530-4E90-AF64-5614C3C28D42}
 		{7A56AB4C-643D-4A64-ABB7-DDA54816FC6F} = {022AD844-2530-4E90-AF64-5614C3C28D42}
 		{D10B06FB-7F77-4792-8E8A-55BF9E2407CE} = {679C6689-9E68-4E0E-9FEC-4CEFFDA8582A}
 		{182890D1-5497-479F-938C-30B4921A587E} = {679C6689-9E68-4E0E-9FEC-4CEFFDA8582A}
 		{8CDE2783-51C2-4AB0-8C88-C92667C1124B} = {679C6689-9E68-4E0E-9FEC-4CEFFDA8582A}
+		{E22D1C35-ED2F-4D4D-B8A3-0AFF4B959701} = {022AD844-2530-4E90-AF64-5614C3C28D42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B5A76A77-ECEB-4FCF-BA4D-57193B514FC6}
