@@ -1,14 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>Volcanion_Core_Services</PackageId>
+		<Version>1.0.0</Version>
+		<Authors>QuanDH</Authors>
+		<Company>Salvation</Company>
+		<Description>Volcanion_Core_Common</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/rickymta/volcanion-core/tree/master/src/Volcanion_Core_Common</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/rickymta/volcanion-core/tree/master/src/Volcanion_Core_Common</RepositoryUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Volcanion_Core_Infrastructure\Volcanion_Core_Infrastructure.csproj" />
-    <ProjectReference Include="..\Volcanion_Core_Models\Volcanion_Core_Models.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Volcanion_Core_Infrastructure\Volcanion_Core_Infrastructure.csproj" />
+		<ProjectReference Include="..\Volcanion_Core_Models\Volcanion_Core_Models.csproj" />
+	</ItemGroup>
 
 </Project>

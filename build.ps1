@@ -36,6 +36,7 @@ foreach ($folder in $childPath) {
     # execute command
     Write-Host "Executing push command for folder: " $folder.Name
     $tempCommand = $baseCommand + $childPackage
+    Write-Host "Command: " $tempCommand
     Invoke-Expression $tempCommand
 
     # go back to base folder
