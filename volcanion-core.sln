@@ -7,21 +7,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{022AD844-253
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{679C6689-9E68-4E0E-9FEC-4CEFFDA8582A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion.Core.Common", "src\Volcanion.Core.Common\Volcanion.Core.Common.csproj", "{D8AAA5E9-B893-47F5-B00E-D399B35A0E80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Common", "src\Volcanion_Core_Common\Volcanion_Core_Common.csproj", "{D8AAA5E9-B893-47F5-B00E-D399B35A0E80}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion.Core.Infrastructure", "src\Volcanion.Core.Infrastructure\Volcanion.Core.Infrastructure.csproj", "{9C6273AB-FD3B-4809-BBF0-7D3A52FA716F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Infrastructure", "src\Volcanion_Core_Infrastructure\Volcanion_Core_Infrastructure.csproj", "{9C6273AB-FD3B-4809-BBF0-7D3A52FA716F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion.Core.Presentation", "src\Volcanion.Core.Presentation\Volcanion.Core.Presentation.csproj", "{A26267A9-B273-4996-A8D3-C12662F068F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Presentation", "src\Volcanion_Core_Presentation\Volcanion_Core_Presentation.csproj", "{A26267A9-B273-4996-A8D3-C12662F068F4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion.Core.Common.Test", "test\Volcanion.Core.Common.Test\Volcanion.Core.Common.Test.csproj", "{9AD9D91D-CD92-469D-AC69-E5CA4408BB85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Common.Test", "test\Volcanion_Core_Common.Test\Volcanion_Core_Common.Test.csproj", "{9AD9D91D-CD92-469D-AC69-E5CA4408BB85}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion.Core.Infrastructure.Test", "test\Volcanion.Core.Infrastructure.Test\Volcanion.Core.Infrastructure.Test.csproj", "{E13CAE33-F8F5-44AE-B5F8-CD9C1D98D98F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Infrastructure.Test", "test\Volcanion_Core_Infrastructure.Test\Volcanion_Core_Infrastructure.Test.csproj", "{E13CAE33-F8F5-44AE-B5F8-CD9C1D98D98F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion.Core.Presentation.Test", "test\Volcanion.Core.Presentation.Test\Volcanion.Core.Presentation.Test.csproj", "{5513DDE1-E3BB-4D36-8AA5-6FEE680853DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Presentation.Test", "test\Volcanion_Core_Presentation.Test\Volcanion_Core_Presentation.Test.csproj", "{5513DDE1-E3BB-4D36-8AA5-6FEE680853DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion.Core.Models", "src\Volcanion.Core.Models\Volcanion.Core.Models.csproj", "{C5B2C7AA-47D2-4925-87B9-6E2115A24741}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Models", "src\Volcanion_Core_Models\Volcanion_Core_Models.csproj", "{C5B2C7AA-47D2-4925-87B9-6E2115A24741}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Volcanion.Core.ServiceHandler", "src\Volcanion.Core.ServiceHandler\Volcanion.Core.ServiceHandler.csproj", "{16DBA29A-B9A0-4A68-A24D-4A5361F984DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Handlers", "src\Volcanion_Core_Handler\Volcanion_Core_Handlers.csproj", "{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Volcanion_Core_Services", "src\Volcanion_Core_Services\Volcanion_Core_Services.csproj", "{7A56AB4C-643D-4A64-ABB7-DDA54816FC6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +59,14 @@ Global
 		{C5B2C7AA-47D2-4925-87B9-6E2115A24741}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5B2C7AA-47D2-4925-87B9-6E2115A24741}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5B2C7AA-47D2-4925-87B9-6E2115A24741}.Release|Any CPU.Build.0 = Release|Any CPU
-		{16DBA29A-B9A0-4A68-A24D-4A5361F984DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{16DBA29A-B9A0-4A68-A24D-4A5361F984DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{16DBA29A-B9A0-4A68-A24D-4A5361F984DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{16DBA29A-B9A0-4A68-A24D-4A5361F984DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A56AB4C-643D-4A64-ABB7-DDA54816FC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A56AB4C-643D-4A64-ABB7-DDA54816FC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A56AB4C-643D-4A64-ABB7-DDA54816FC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A56AB4C-643D-4A64-ABB7-DDA54816FC6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,7 +79,8 @@ Global
 		{E13CAE33-F8F5-44AE-B5F8-CD9C1D98D98F} = {679C6689-9E68-4E0E-9FEC-4CEFFDA8582A}
 		{5513DDE1-E3BB-4D36-8AA5-6FEE680853DF} = {679C6689-9E68-4E0E-9FEC-4CEFFDA8582A}
 		{C5B2C7AA-47D2-4925-87B9-6E2115A24741} = {022AD844-2530-4E90-AF64-5614C3C28D42}
-		{16DBA29A-B9A0-4A68-A24D-4A5361F984DE} = {022AD844-2530-4E90-AF64-5614C3C28D42}
+		{B384EF3E-BCEB-4FCE-95D9-1EADE55F0DDE} = {022AD844-2530-4E90-AF64-5614C3C28D42}
+		{7A56AB4C-643D-4A64-ABB7-DDA54816FC6F} = {022AD844-2530-4E90-AF64-5614C3C28D42}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B5A76A77-ECEB-4FCF-BA4D-57193B514FC6}

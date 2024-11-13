@@ -1,4 +1,4 @@
-namespace Volcanion.Core.Infrastructure.Test
+namespace Volcanion_Core_Infrastructure.Test
 {
     public class UnitTest1
     {

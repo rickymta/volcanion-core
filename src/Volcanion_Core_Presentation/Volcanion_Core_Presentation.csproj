@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>Volcanion_Core_Presentation</PackageId>
+		<Version>1.0.1</Version>
+		<Authors>QuanDH</Authors>
+		<Company>Salvation</Company>
+		<Description>Volcanion_Core_Presentation</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/rickymta/volcanion-core/tree/master/src/Volcanion_Core_Presentation</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/rickymta/volcanion-core/tree/master/src/Volcanion_Core_Presentation</RepositoryUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Volcanion_Core_Common\Volcanion_Core_Common.csproj" />
+	  <ProjectReference Include="..\Volcanion_Core_Infrastructure\Volcanion_Core_Infrastructure.csproj" />
+	  <ProjectReference Include="..\Volcanion_Core_Models\Volcanion_Core_Models.csproj" />
+	</ItemGroup>
+
+</Project>
