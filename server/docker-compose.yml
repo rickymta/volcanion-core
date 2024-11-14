@@ -13,6 +13,8 @@ services:
     ports:
       - "5000:80"
     restart: always
+    networks:
+      - volcanion-nuget-server-network
 
   nginx:
     build:
@@ -29,3 +31,9 @@ services:
     depends_on:
       - baget
     restart: always
+    networks:
+      - volcanion-nuget-server-network
+
+networks:
+  volcanion-nuget-server-network:
+    driver: bridge
