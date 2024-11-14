@@ -68,40 +68,36 @@ public class HashProvider : IHashProvider
     /// <inheritdoc/>
     public string HashSHA512(string data, string privateKeyFile)
     {
-        byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-        byte[] hashBytes;
-
-        using (SHA512 sha512 = SHA512.Create())
-        {
-            hashBytes = sha512.ComputeHash(dataBytes);
-        }
-
-        RSA rsa = RSA.Create();
+        // Get the private key from the file or string
         privateKeyFile = AppContext.BaseDirectory + "\\Secrets\\" + privateKeyFile;
-        rsa.ImportFromPem(File.ReadAllText(privateKeyFile));
-        byte[] signedHash = rsa.SignHash(hashBytes, HashAlgorithmName.SHA512, RSASignaturePadding.Pkcs1);
+        // Read the private key from the file
+        var privateKey = File.ReadAllText(privateKeyFile);
+        // Create a new instance of RSA
+        using var rsa = RSA.Create();
+        // Import the private key
+        rsa.ImportFromPem(privateKey);
+        // Hash the data with SHA512
+        byte[] dataBytes = Encoding.UTF8.GetBytes(data);
+        // Sign the hash with the private key
+        var signedHash = rsa.SignData(dataBytes, HashAlgorithmName.SHA512, RSASignaturePadding.Pkcs1);
+        // Return the signed hash as a base64 string
         return Convert.ToBase64String(signedHash);
     }
 
     /// <inheritdoc/>
     public bool VerifySignature(string data, string dataCompare, string publicKeyFile)
     {
-        var signedHash = Convert.FromBase64String(dataCompare);
         // Get the public key from the file or string
-        RSA rsa = RSA.Create();
         publicKeyFile = AppContext.BaseDirectory + "\\Secrets\\" + publicKeyFile;
-        rsa.ImportFromPem(File.ReadAllText(publicKeyFile));
-
-        // Hash the data again with SHA512
+        var publicKey = File.ReadAllText(publicKeyFile);
+        // Decode the base64 signature
+        using var rsa = RSA.Create();
+        // Import the public key
+        rsa.ImportFromPem(publicKey);
+        // Hash the data with SHA512
         byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-        byte[] hashBytes;
-
-        using (SHA512 sha512 = SHA512.Create())
-        {
-            hashBytes = sha512.ComputeHash(dataBytes);
-        }
-
+        byte[] signature = Encoding.UTF8.GetBytes(dataCompare);
         // Verify the signature with the public key
-        return rsa.VerifyHash(hashBytes, signedHash, HashAlgorithmName.SHA512, RSASignaturePadding.Pkcs1);
+        return rsa.VerifyData(dataBytes, signature, HashAlgorithmName.SHA512, RSASignaturePadding.Pkcs1);
     }
 }
