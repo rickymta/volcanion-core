@@ -1,14 +1,17 @@
 ﻿using Microsoft.Extensions.Logging;
 using Volcanion.Core.Handlers.Abstractions;
+using Volcanion.Core.Models.Common;
 using Volcanion.Core.Models.Entities;
+using Volcanion.Core.Models.Filter;
 using Volcanion.Core.Services.Abstractions;
 
 namespace Volcanion.Core.Handlers.Implementations;
 
 /// <inheritdoc/>
-public class BaseHandler<T, TService> : IBaseHandler<T>
+public class BaseHandler<T, TService, TFilter> : IBaseHandler<T, TFilter>
     where T : BaseEntity
-    where TService : IBaseService<T>
+    where TFilter : FilterBase
+    where TService : IBaseService<T, TFilter>
 {
     /// <summary>
     /// TService instance
@@ -18,14 +21,14 @@ public class BaseHandler<T, TService> : IBaseHandler<T>
     /// <summary>
     /// ILogger instance
     /// </summary>
-    protected readonly ILogger<BaseHandler<T, TService>> _logger;
+    protected readonly ILogger<BaseHandler<T, TService, TFilter>> _logger;
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="service"></param>
     /// <param name="logger"></param>
-    public BaseHandler(TService service, ILogger<BaseHandler<T, TService>> logger)
+    public BaseHandler(TService service, ILogger<BaseHandler<T, TService, TFilter>> logger)
     {
         _service = service;
         _logger = logger;
@@ -65,5 +68,11 @@ public class BaseHandler<T, TService> : IBaseHandler<T>
     public async Task<bool> SoftDeleteAsync(Guid id)
     {
         return await _service.SoftDeleteAsync(id);
+    }
+
+    /// <inheritdoc/>
+    public async Task<DataPaging<T>> FilterDataPagingAsync(TFilter filter)
+    {
+        return await _service.FilterDataPagingAsync(filter);
     }
 }

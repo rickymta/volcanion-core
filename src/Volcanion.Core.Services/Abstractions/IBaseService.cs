@@ -1,4 +1,6 @@
-﻿using Volcanion.Core.Models.Entities;
+﻿using Volcanion.Core.Models.Common;
+using Volcanion.Core.Models.Entities;
+using Volcanion.Core.Models.Filter;
 
 namespace Volcanion.Core.Services.Abstractions;
 
@@ -6,7 +8,9 @@ namespace Volcanion.Core.Services.Abstractions;
 /// IBaseService
 /// </summary>
 /// <typeparam name="T">Entity</typeparam>
-public interface IBaseService<T> where T : BaseEntity
+public interface IBaseService<T, TFilter>
+    where T : BaseEntity
+    where TFilter : FilterBase
 {
     /// <summary>
     /// CreateAsync
@@ -27,6 +31,13 @@ public interface IBaseService<T> where T : BaseEntity
     /// </summary>
     /// <returns></returns>
     Task<IEnumerable<T>?> GetAllAsync();
+
+    /// <summary>
+    /// FilterDataPagingAsync
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    Task<DataPaging<T>> FilterDataPagingAsync(TFilter filter);
 
     /// <summary>
     /// UpdateAsync

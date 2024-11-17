@@ -1,4 +1,7 @@
+using System.Linq.Expressions;
+using Volcanion.Core.Models.Common;
 using Volcanion.Core.Models.Entities;
+using Volcanion.Core.Models.Filter;
 
 namespace Volcanion.Core.Infrastructure.Abstractions;
 
@@ -6,7 +9,9 @@ namespace Volcanion.Core.Infrastructure.Abstractions;
 /// IGenericRepository
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public interface IGenericRepository<T> where T : BaseEntity
+public interface IGenericRepository<T, TFilter>
+    where T : BaseEntity
+    where TFilter : FilterBase
 {
     /// <summary>
     /// CreateAsync
@@ -27,6 +32,21 @@ public interface IGenericRepository<T> where T : BaseEntity
     /// </summary>
     /// <returns></returns>
     Task<IEnumerable<T>?> GetAllAsync();
+
+    /// <summary>
+    /// FilterDataPagingAsync
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    Task<DataPaging<T>> FilterDataPagingAsync(TFilter filter);
+
+    /// <summary>
+    /// FilterDataPagingByExpressionAsync
+    /// </summary>
+    /// <param name="expression"></param>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    Task<DataPaging<T>> FilterDataPagingByExpressionAsync(Expression<Func<T, bool>> expression, TFilter filter);
 
     /// <summary>
     /// UpdateAsync

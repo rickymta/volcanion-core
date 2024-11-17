@@ -1,31 +1,34 @@
 ﻿using Microsoft.Extensions.Logging;
 using Volcanion.Core.Infrastructure.Abstractions;
+using Volcanion.Core.Models.Common;
 using Volcanion.Core.Models.Entities;
+using Volcanion.Core.Models.Filter;
 using Volcanion.Core.Services.Abstractions;
 
 namespace Volcanion.Core.Services.Implementations;
 
 /// <inheritdoc/>
-public class BaseService<T, TRepository> : IBaseService<T>
+public class BaseService<T, TRepository, TFilter> : IBaseService<T, TFilter>
     where T : BaseEntity
-    where TRepository : IGenericRepository<T>
+    where TFilter : FilterBase
+    where TRepository : IGenericRepository<T, TFilter>
 {
     /// <summary>
-    /// TRepository
+    /// TRepository instance
     /// </summary>
     protected readonly TRepository _repository;
 
     /// <summary>
-    /// ILogger
+    /// ILogger instance
     /// </summary>
-    protected readonly ILogger<BaseService<T, TRepository>> _logger;
+    protected readonly ILogger<BaseService<T, TRepository, TFilter>> _logger;
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="repository"></param>
     /// <param name="logger"></param>
-    public BaseService(TRepository repository, ILogger<BaseService<T, TRepository>> logger)
+    public BaseService(TRepository repository, ILogger<BaseService<T, TRepository, TFilter>> logger)
     {
         _repository = repository;
         _logger = logger;
@@ -65,5 +68,10 @@ public class BaseService<T, TRepository> : IBaseService<T>
     public async Task<bool> SoftDeleteAsync(Guid id)
     {
         return await _repository.SoftDeleteAsync(id);
+    }
+
+    public async Task<DataPaging<T>> FilterDataPagingAsync(TFilter filter)
+    {
+        return await _repository.FilterDataPagingAsync(filter);
     }
 }

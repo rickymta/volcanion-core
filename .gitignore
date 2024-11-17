@@ -675,3 +675,4 @@ ocelot.json
 /src/6-Docker/mssqldata/Entropy.bin
 /.nuke/temp/execution-plan.html
 .sonarqube
+/src/Volcanion.Core.Infrastructure/Implementations/BaseRepository.cs

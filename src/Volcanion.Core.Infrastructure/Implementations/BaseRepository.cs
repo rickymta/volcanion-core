@@ -1,15 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Linq.Expressions;
 using System.Reflection;
 using Volcanion.Core.Infrastructure.Abstractions;
+using Volcanion.Core.Models.Common;
 using Volcanion.Core.Models.Entities;
+using Volcanion.Core.Models.Filter;
 
 namespace Volcanion.Core.Infrastructure.Implementations;
 
 /// <inheritdoc/>
-public class BaseRepository<T, TContext> : IGenericRepository<T>
+public class BaseRepository<T, TContext, TFilter> : IGenericRepository<T, TFilter>
     where T : BaseEntity
     where TContext : DbContext
+    where TFilter : FilterBase
 {
     /// <summary>
     /// TContext instance
@@ -19,17 +25,23 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
     /// <summary>
     /// ILogger instance
     /// </summary>
-    protected ILogger<BaseRepository<T, TContext>> _logger;
+    protected ILogger<BaseRepository<T, TContext, TFilter>> _logger;
+
+    /// <summary>
+    /// IHttpContextAccessor instance
+    /// </summary>
+    protected IHttpContextAccessor _httpContextAccessor;
 
     /// <summary>
     /// Constructor
     /// </summary>
     /// <param name="context"></param>
     /// <param name="logger"></param>
-    public BaseRepository(TContext context, ILogger<BaseRepository<T, TContext>> logger)
+    public BaseRepository(TContext context, ILogger<BaseRepository<T, TContext, TFilter>> logger, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
         _logger = logger;
+        _httpContextAccessor = httpContextAccessor;
     }
 
     /// <inheritdoc/>
@@ -37,6 +49,10 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
     {
         try
         {
+            var routeData = _httpContextAccessor.HttpContext.GetRouteData().Values;
+            var accountId = routeData["AccountId"];
+            entity.CreatedBy = accountId.ToString();
+            entity.CreatedAt = DateTimeOffset.Now;
             // Add entity to the context
             await _context.Set<T>().AddAsync(entity);
             // Save changes
@@ -147,6 +163,10 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
                     property.SetValue(find, property.GetValue(entity, null), null);
                 }
 
+                var routeData = _httpContextAccessor.HttpContext.GetRouteData().Values;
+                var accountId = routeData["AccountId"];
+                find.UpdatedBy = accountId.ToString();
+                find.UpdatedAt = DateTimeOffset.Now;
                 // Save changes
                 await _context.SaveChangesAsync();
                 return true;
@@ -174,8 +194,11 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
             // If entity found
             if (find != null)
             {
+                var routeData = _httpContextAccessor.HttpContext.GetRouteData().Values;
+                var accountId = routeData["AccountId"];
                 find.IsActived = false;
                 find.IsDeleted = true;
+                find.DeletedBy = accountId.ToString();
                 find.DeletedAt = DateTimeOffset.Now;
 
                 // Save changes
@@ -193,5 +216,17 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
         }
 
         return false;
+    }
+
+    /// <inheritdoc/>
+    public Task<DataPaging<T>> FilterDataPagingAsync(TFilter filter)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc/>
+    public Task<DataPaging<T>> FilterDataPagingByExpressionAsync(Expression<Func<T, bool>> expression, TFilter filter)
+    {
+        throw new NotImplementedException();
     }
 }
