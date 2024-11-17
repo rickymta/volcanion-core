@@ -6,7 +6,8 @@ namespace Volcanion.Core.Infrastructure.Abstractions;
 /// IGenericRepository
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public interface IGenericRepository<T> where T : BaseEntity
+public interface IGenericRepository<T>
+    where T : BaseEntity
 {
     /// <summary>
     /// CreateAsync

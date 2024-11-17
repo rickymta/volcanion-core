@@ -6,7 +6,8 @@ namespace Volcanion.Core.Services.Abstractions;
 /// IBaseService
 /// </summary>
 /// <typeparam name="T">Entity</typeparam>
-public interface IBaseService<T> where T : BaseEntity
+public interface IBaseService<T>
+    where T : BaseEntity
 {
     /// <summary>
     /// CreateAsync

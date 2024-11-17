@@ -6,7 +6,8 @@ namespace Volcanion.Core.Handlers.Abstractions;
 /// IBaseHandler
 /// </summary>
 /// <typeparam name="T">Entity</typeparam>
-public interface IBaseHandler<T> where T : BaseEntity
+public interface IBaseHandler<T>
+    where T : BaseEntity
 {
     /// <summary>
     /// CreateAsync

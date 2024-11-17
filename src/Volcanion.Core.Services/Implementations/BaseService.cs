@@ -11,12 +11,12 @@ public class BaseService<T, TRepository> : IBaseService<T>
     where TRepository : IGenericRepository<T>
 {
     /// <summary>
-    /// TRepository
+    /// TRepository instance
     /// </summary>
     protected readonly TRepository _repository;
 
     /// <summary>
-    /// ILogger
+    /// ILogger instance
     /// </summary>
     protected readonly ILogger<BaseService<T, TRepository>> _logger;
 

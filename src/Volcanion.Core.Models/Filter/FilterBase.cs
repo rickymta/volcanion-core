@@ -16,11 +16,6 @@ public class FilterBase
     public int? Page { get; set; }
 
     /// <summary>
-    /// Offset
-    /// </summary>
-    public int? Offset { get; set; }
-
-    /// <summary>
     /// IsActived
     /// </summary>
     public bool? IsActived { get; set; }
