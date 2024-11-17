@@ -164,4 +164,34 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
         return false;
     }
 
+    /// <inheritdoc/>
+    public async Task<bool> SoftDeleteAsync(Guid id)
+    {
+        try
+        {
+            // Find entity by id
+            T? find = await _context.Set<T>().FindAsync(id);
+            // If entity found
+            if (find != null)
+            {
+                find.IsActived = false;
+                find.IsDeleted = true;
+                find.DeletedAt = DateTimeOffset.Now;
+
+                // Save changes
+                await _context.SaveChangesAsync();
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log error
+            _logger.LogError(ex.Message);
+            _logger.LogError(ex.StackTrace);
+            // Throw exception
+            throw new Exception(ex.Message);
+        }
+
+        return false;
+    }
 }

@@ -1,4 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Volcanion.Core.Common.Abstractions;
@@ -66,38 +71,82 @@ public class HashProvider : IHashProvider
     }
 
     /// <inheritdoc/>
-    public string HashSHA512(string data, string privateKeyFile)
+    public string HashSHA512(string payloadJson, string privateKeyFile)
     {
-        // Get the private key from the file or string
-        privateKeyFile = AppContext.BaseDirectory + "\\Secrets\\" + privateKeyFile;
-        // Read the private key from the file
-        var privateKey = File.ReadAllText(privateKeyFile);
-        // Create a new instance of RSA
-        using var rsa = RSA.Create();
-        // Import the private key
-        rsa.ImportFromPem(privateKey);
-        // Hash the data with SHA512
-        byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-        // Sign the hash with the private key
-        var signedHash = rsa.SignData(dataBytes, HashAlgorithmName.SHA512, RSASignaturePadding.Pkcs1);
-        // Return the signed hash as a base64 string
-        return Convert.ToBase64String(signedHash);
+        // Load private key từ file
+        var privateKeyFilePath = AppContext.BaseDirectory + "\\Secrets\\" + privateKeyFile;
+        // Load private key từ file
+        var privateKey = System.IO.File.ReadAllText(privateKeyFilePath);
+        var rsa = System.Security.Cryptography.RSA.Create();
+        rsa.ImportFromPem(privateKey.ToCharArray());
+
+        // Tạo đối tượng RS512 signature algorithm
+        var rsaSecurityKey = new RsaSecurityKey(rsa);
+        var signingCredentials = new SigningCredentials(rsaSecurityKey, SecurityAlgorithms.RsaSha512);
+
+        // Chuyển chuỗi JSON payload thành Dictionary
+        var payloadDictionary = JsonConvert.DeserializeObject<Dictionary<string, object>>(payloadJson) ?? throw new Exception("Payload is invalid!");
+
+        // Chuyển Dictionary thành danh sách các Claim
+        var claims = new List<Claim>();
+        foreach (var kvp in payloadDictionary)
+        {
+            if (kvp.Value is Newtonsoft.Json.Linq.JObject)
+            {
+                // Nếu giá trị là đối tượng JSON, chuyển thành chuỗi JSON
+                var jsonString = JsonConvert.SerializeObject(kvp.Value);
+                claims.Add(new Claim(kvp.Key, jsonString));
+            }
+            else if (kvp.Value is Newtonsoft.Json.Linq.JArray)
+            {
+                // Nếu giá trị là mảng JSON, chuyển thành chuỗi JSON
+                var jsonString = JsonConvert.SerializeObject(kvp.Value);
+                claims.Add(new Claim(kvp.Key, jsonString));
+            }
+            else
+            {
+                // Nếu là giá trị đơn giản, chuyển trực tiếp thành chuỗi
+                claims.Add(new Claim(kvp.Key, kvp.Value.ToString()));
+            }
+        }
+
+        // Tạo payload từ danh sách Claim
+        var payloadObject = new JwtPayload(claims);
+
+        // Tạo và ký JWT
+        var header = new JwtHeader(signingCredentials);
+        var jwt = new JwtSecurityToken(header, payloadObject);
+        var jwtHandler = new JwtSecurityTokenHandler();
+        return jwtHandler.WriteToken(jwt);
     }
 
     /// <inheritdoc/>
-    public bool VerifySignature(string data, string dataCompare, string publicKeyFile)
+    public bool VerifySignature(string token, string publicKeyFile)
     {
-        // Get the public key from the file or string
-        publicKeyFile = AppContext.BaseDirectory + "\\Secrets\\" + publicKeyFile;
-        var publicKey = File.ReadAllText(publicKeyFile);
-        // Decode the base64 signature
-        using var rsa = RSA.Create();
-        // Import the public key
-        rsa.ImportFromPem(publicKey);
-        // Hash the data with SHA512
-        byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-        byte[] signature = Encoding.UTF8.GetBytes(dataCompare);
-        // Verify the signature with the public key
-        return rsa.VerifyData(dataBytes, signature, HashAlgorithmName.SHA512, RSASignaturePadding.Pkcs1);
+        var publicKeyFilePath = AppContext.BaseDirectory + "\\Secrets\\" + publicKeyFile;
+        var publicKey = File.ReadAllText(publicKeyFilePath);
+        var rsa = RSA.Create();
+        rsa.ImportFromPem(publicKey.ToCharArray());
+
+        var rsaSecurityKey = new RsaSecurityKey(rsa);
+        var validationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = false,
+            IssuerSigningKey = rsaSecurityKey
+        };
+
+        try
+        {
+            // Parse token và xác minh
+            var jwtHandler = new JwtSecurityTokenHandler();
+            var principal = jwtHandler.ValidateToken(token, validationParameters, out var validatedToken);
+            return true;  // Nếu không xảy ra lỗi, nghĩa là xác minh thành công
+        }
+        catch (Exception)
+        {
+            return false;  // Nếu có lỗi xảy ra trong quá trình xác minh
+        }
     }
 }

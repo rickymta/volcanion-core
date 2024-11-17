@@ -34,75 +34,36 @@ public class BaseHandler<T, TService> : IBaseHandler<T>
     /// <inheritdoc/>
     public async Task<Guid> CreateAsync(T entity)
     {
-        try
-        {
-            return await _service.CreateAsync(entity);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
-            throw new Exception(ex.Message);
-        }
+        return await _service.CreateAsync(entity);
     }
 
     /// <inheritdoc/>
     public async Task<bool> DeleteAsync(Guid id)
     {
-        try
-        {
-            return await _service.DeleteAsync(id);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
-            throw new Exception(ex.Message);
-        }
+        return await _service.DeleteAsync(id);
     }
 
     /// <inheritdoc/>
     public async Task<IEnumerable<T>?> GetAllAsync()
     {
-        try
-        {
-            return await _service.GetAllAsync();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
-            throw new Exception(ex.Message);
-        }
+        return await _service.GetAllAsync();
     }
 
     /// <inheritdoc/>
     public async Task<T?> GetAsync(Guid id)
     {
-        try
-        {
-            return await _service.GetAsync(id);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
-            throw new Exception(ex.Message);
-        }
+        return await _service.GetAsync(id);
     }
 
     /// <inheritdoc/>
     public async Task<bool> UpdateAsync(T entity)
     {
-        try
-        {
-            return await _service.UpdateAsync(entity);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
-            throw new Exception(ex.Message);
-        }
+        return await _service.UpdateAsync(entity);
+    }
+
+    /// <inheritdoc/>
+    public async Task<bool> SoftDeleteAsync(Guid id)
+    {
+        return await _service.SoftDeleteAsync(id);
     }
 }

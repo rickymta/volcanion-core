@@ -41,4 +41,11 @@ public interface IBaseService<T> where T : BaseEntity
     /// <param name="id"></param>
     /// <returns></returns>
     Task<bool> DeleteAsync(Guid id);
+
+    /// <summary>
+    /// SoftDeleteAsync
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    Task<bool> SoftDeleteAsync(Guid id);
 }

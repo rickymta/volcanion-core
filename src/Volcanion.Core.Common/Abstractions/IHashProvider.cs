@@ -60,9 +60,8 @@ public interface IHashProvider
     /// <summary>
     /// VerifySignature
     /// </summary>
-    /// <param name="data"></param>
-    /// <param name="dataCompare"></param>
+    /// <param name="token"></param>
     /// <param name="publicKeyFile"></param>
     /// <returns></returns>
-    public bool VerifySignature(string data, string dataCompare, string publicKeyFile);
+    public bool VerifySignature(string token, string publicKeyFile);
 }

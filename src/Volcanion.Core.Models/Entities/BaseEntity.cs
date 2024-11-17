@@ -8,22 +8,22 @@ public class BaseEntity
     /// <summary>
     /// GUID
     /// </summary>
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     /// <summary>
     /// IsActived
     /// </summary>
-    public bool IsActived { get; set; }
+    public bool IsActived { get; set; } = true;
 
     /// <summary>
     /// IsDeleted
     /// </summary>
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set; } = false;
 
     /// <summary>
     /// CreatedAt
     /// </summary>
-    public DateTime CreatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.Now;
 
     /// <summary>
     /// CreatedId
@@ -33,7 +33,7 @@ public class BaseEntity
     /// <summary>
     /// UpdatedAt
     /// </summary>
-    public DateTime? UpdatedAt { get; set; }
+    public DateTimeOffset? UpdatedAt { get; set; }
 
     /// <summary>
     /// UpdatedId
@@ -43,7 +43,7 @@ public class BaseEntity
     /// <summary>
     /// DeletedAt
     /// </summary>
-    public DateTime? DeletedAt { get; set; }
+    public DateTimeOffset? DeletedAt { get; set; }
 
     /// <summary>
     /// DeletedId

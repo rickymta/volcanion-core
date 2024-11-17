@@ -69,6 +69,7 @@ public class GlobalErrorHandlingMiddleware
         string errorStatus;
         string errorDetails;
         string errorMessage;
+        string? stackTrace;
 
         // Check exception type
         if (exceptionType == typeof(BadRequestException))
@@ -84,6 +85,7 @@ public class GlobalErrorHandlingMiddleware
             errorStatus = "BadRequest";
             // Default error message is exception message
             errorMessage = exception.Message;
+            stackTrace = exception.StackTrace;
         }
         else if (exceptionType == typeof(NotFoundException))
         {
@@ -98,6 +100,7 @@ public class GlobalErrorHandlingMiddleware
             errorStatus = "NotFound";
             // Default error message is exception message
             errorMessage = exception.Message;
+            stackTrace = exception.StackTrace;
         }
         else if (exceptionType == typeof(FormatException))
         {
@@ -112,6 +115,7 @@ public class GlobalErrorHandlingMiddleware
             errorStatus = "Format exception";
             // Default error message is exception message
             errorMessage = exception.Message;
+            stackTrace = exception.StackTrace;
         }
         else if (exceptionType == typeof(VolcanionBusinessException))
         {
@@ -126,6 +130,22 @@ public class GlobalErrorHandlingMiddleware
             errorStatus = "Volcanion busniess exception";
             // Default error message is exception message
             errorMessage = exception.Message;
+            stackTrace = exception.StackTrace;
+        }
+        else if (exceptionType == typeof(VolcanionAuthException))
+        {
+            // Set status code, error code, error status, error details, error message and stack trace
+            // Default status code is Unauthorized
+            status = HttpStatusCode.Unauthorized;
+            // Default error code is Unauthorized
+            errorCode = status;
+            // Default error details is https://httpstatuses.io/401
+            errorDetails = $"https://httpstatuses.io/{(int)status}";
+            // Default error status is Unauthorized
+            errorStatus = "Volcanion unauthorized exception";
+            // Default error message is exception message
+            errorMessage = exception.Message;
+            stackTrace = exception.StackTrace;
         }
         else
         {
@@ -140,6 +160,7 @@ public class GlobalErrorHandlingMiddleware
             errorStatus = "InternalServerError";
             // Default error message is exception message
             errorMessage = exception.Message;
+            stackTrace = exception.StackTrace;
         }
 
         // Serialize exception result
@@ -149,6 +170,7 @@ public class GlobalErrorHandlingMiddleware
             ErrorCode = errorCode,
             ErrorDetails = errorDetails,
             ErrorMessage = errorMessage,
+            StackTrace = stackTrace
         });
 
         // Log error message and stack trace

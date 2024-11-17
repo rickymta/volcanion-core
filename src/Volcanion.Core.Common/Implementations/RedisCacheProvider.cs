@@ -1,62 +1,49 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Options;
-using System.Text.Json;
+﻿using StackExchange.Redis;
 using Volcanion.Core.Common.Abstractions;
-using Volcanion.Core.Common.Models.Redis;
 
 namespace Volcanion.Core.Common.Implementations;
 
 /// <inheritdoc/>
-public class RedisCacheProvider : IRedisCacheProvider
+public class RedisCacheProvider(IConnectionMultiplexer connectionMultiplexer) : IRedisCacheProvider
 {
     /// <summary>
-    /// IDistributedCache
+    /// IDatabase instance
     /// </summary>
-    private readonly IDistributedCache _cache;
+    private readonly IDatabase _database = connectionMultiplexer.GetDatabase();
 
-    /// <summary>
-    /// RedisOptions
-    /// </summary>
-    private readonly IOptionsMonitor<RedisOptions> _redisOptionsMonitor;
-
-    /// <summary>
-    /// Constructor
-    /// </summary>
-    /// <param name="cache"></param>
-    /// <param name="redisOptionsMonitor"></param>
-    public RedisCacheProvider(IDistributedCache cache, IOptionsMonitor<RedisOptions> redisOptionsMonitor)
+    /// <inheritdoc/>
+    public async Task SetStringAsync(string key, string value)
     {
-        _cache = cache;
-        _redisOptionsMonitor = redisOptionsMonitor;
+        await _database.StringSetAsync(key, value);
     }
 
     /// <inheritdoc/>
-    public async Task<T> GetCacheAsync<T>(string key)
+    public async Task<string> GetStringAsync(string key)
     {
-        var jsonData = await _cache.GetStringAsync(key);
-
-        if (jsonData is null)
-        {
-            return default;
-        }
-
-        return JsonSerializer.Deserialize<T>(jsonData);
+        return await _database.StringGetAsync(key);
     }
 
     /// <inheritdoc/>
-    public async Task<T> SetCacheAsync<T>(string key, T value)
+    public async Task SetHashAsync(string key, string field, string value)
     {
-        var optionsCache = _redisOptionsMonitor.CurrentValue;
-        var options = new DistributedCacheEntryOptions
-        {
-            AbsoluteExpirationRelativeToNow = optionsCache.AbsoluteExpireTime,
-            SlidingExpiration = optionsCache.SlidingExpireTime
-        };
+        await _database.HashSetAsync(key, field, value);
+    }
 
-        var jsonData = JsonSerializer.Serialize(value);
+    /// <inheritdoc/>
+    public async Task<string> GetHashAsync(string key, string field)
+    {
+        return await _database.HashGetAsync(key, field);
+    }
 
-        await _cache.SetStringAsync(key, jsonData, options);
+    /// <inheritdoc/>
+    public async Task<bool> KeyExistsAsync(string key)
+    {
+        return await _database.KeyExistsAsync(key);
+    }
 
-        return value;
+    /// <inheritdoc/>
+    public async Task DeleteKeyAsync(string key)
+    {
+        await _database.KeyDeleteAsync(key);
     }
 }

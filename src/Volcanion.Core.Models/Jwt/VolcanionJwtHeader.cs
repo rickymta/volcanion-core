@@ -1,21 +1,17 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Volcanion.Core.Models.Jwt;
+﻿namespace Volcanion.Core.Models.Jwt;
 
 /// <summary>
 /// JwtHeader
 /// </summary>
-public class JwtHeader
+public class VolcanionJwtHeader
 {
     /// <summary>
     /// JWT type
     /// </summary>
-    [JsonPropertyName("typ")]
     public string Type { get; set; } = "JWT";
 
     /// <summary>
     /// Encryption algorithm
     /// </summary>
-    [JsonPropertyName("alg")]
-    public string Algorithm { get; set; } = "HS512";
+    public string Algorithm { get; set; } = "RS512";
 }

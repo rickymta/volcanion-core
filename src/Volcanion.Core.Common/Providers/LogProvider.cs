@@ -44,7 +44,7 @@ public static class LogProvider
         return new ElasticsearchSinkOptions(new Uri(elasticsearchUrl))
         {
             AutoRegisterTemplate = true,
-            IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name.ToLower().Replace(",", "-")}-{environment.ToLower()}-{DateTime.UtcNow:yyyy-MM}",
+            IndexFormat = $"{Assembly.GetExecutingAssembly().GetName().Name.ToLower().Replace(",", "-")}-{environment.ToLower()}-{DateTime.Now:yyyy-MM}",
             NumberOfReplicas = 1,
             NumberOfShards = 2
         };

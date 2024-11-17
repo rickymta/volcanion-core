@@ -34,6 +34,7 @@
 		<PackageReference Include="Serilog.Sinks.Debug" Version="3.0.0" />
 		<PackageReference Include="Serilog.Sinks.Elasticsearch" Version="10.0.0" />
 		<PackageReference Include="StackExchange.Redis" Version="2.8.16" />
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.2.0" />
 	</ItemGroup>
 
 </Project>

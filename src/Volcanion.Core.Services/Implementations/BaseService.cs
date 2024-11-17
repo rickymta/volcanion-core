@@ -34,75 +34,36 @@ public class BaseService<T, TRepository> : IBaseService<T>
     /// <inheritdoc/>
     public async Task<Guid> CreateAsync(T entity)
     {
-        try
-        {
-            return await _repository.CreateAsync(entity);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
-            throw new Exception(ex.Message);
-        }
+        return await _repository.CreateAsync(entity);
     }
 
     /// <inheritdoc/>
     public async Task<bool> DeleteAsync(Guid id)
     {
-        try
-        {
-            return await _repository.DeleteAsync(id);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
-            throw new Exception(ex.Message);
-        }
+        return await _repository.DeleteAsync(id);
     }
 
     /// <inheritdoc/>
     public async Task<IEnumerable<T>?> GetAllAsync()
     {
-        try
-        {
-            return await _repository.GetAllAsync();
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
-            throw new Exception(ex.Message);
-        }
+        return await _repository.GetAllAsync();
     }
 
     /// <inheritdoc/>
     public async Task<T?> GetAsync(Guid id)
     {
-        try
-        {
-            return await _repository.GetAsync(id);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
-            throw new Exception(ex.Message);
-        }
+        return await _repository.GetAsync(id);
     }
 
     /// <inheritdoc/>
     public async Task<bool> UpdateAsync(T entity)
     {
-        try
-        {
-            return await _repository.UpdateAsync(entity);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
-            throw new Exception(ex.Message);
-        }
+        return await _repository.UpdateAsync(entity);
+    }
+
+    /// <inheritdoc/>
+    public async Task<bool> SoftDeleteAsync(Guid id)
+    {
+        return await _repository.SoftDeleteAsync(id);
     }
 }
