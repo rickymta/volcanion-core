@@ -36,7 +36,7 @@ public class CookieProvider : ICookieProvider
     /// <inheritdoc/>
     public string Get(string key)
     {
-        return _httpContextAccessor.HttpContext.Request.Cookies[key];
+        return _httpContextAccessor.HttpContext.Request.Cookies[key]!;
     }
 
     /// <inheritdoc/>

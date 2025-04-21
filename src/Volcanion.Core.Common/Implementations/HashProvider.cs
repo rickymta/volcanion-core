@@ -16,13 +16,13 @@ public class HashProvider : IHashProvider
     /// <inheritdoc/>
     public string HashPassword(string password)
     {
-        return new PasswordHasher<object>().HashPassword(null, password);
+        return new PasswordHasher<object>().HashPassword(new(), password);
     }
 
     /// <inheritdoc/>
     public bool VerifyPassword(string hashedPassword, string password)
     {
-        return new PasswordHasher<object>().VerifyHashedPassword(null, hashedPassword, password) != PasswordVerificationResult.Failed;
+        return new PasswordHasher<object>().VerifyHashedPassword(new(), hashedPassword, password) != PasswordVerificationResult.Failed;
     }
 
     /// <inheritdoc/>
@@ -106,7 +106,7 @@ public class HashProvider : IHashProvider
             else
             {
                 // Nếu là giá trị đơn giản, chuyển trực tiếp thành chuỗi
-                claims.Add(new Claim(kvp.Key, kvp.Value.ToString()));
+                claims.Add(new Claim(kvp.Key, kvp.Value.ToString()!));
             }
         }
 

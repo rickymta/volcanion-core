@@ -47,7 +47,7 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
         {
             var routeData = _httpContextAccessor.HttpContext.GetRouteData().Values;
             var accountId = routeData["AccountId"];
-            entity.CreatedBy = accountId.ToString();
+            entity.CreatedBy = accountId != null ? accountId.ToString() : "SYSTEM";
             entity.CreatedAt = DateTimeOffset.Now;
             // Add entity to the context
             await _context.Set<T>().AddAsync(entity);
@@ -59,8 +59,7 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
         catch (Exception ex)
         {
             // Log error
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
+            _logger.LogError(ex, "[BaseRepository][CreateAsync] Error on base repository");
             // Throw exception
             throw new Exception(ex.Message);
         }
@@ -86,8 +85,7 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
         catch (Exception ex)
         {
             // Log error
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
+            _logger.LogError(ex, "[BaseRepository][DeleteAsync] Error on base repository");
             // Throw exception
             throw new Exception(ex.Message);
         }
@@ -101,15 +99,14 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
         try
         {
             // Get all entities
-            var res = await _context.Set<T>().ToListAsync();
+            var res = await _context.Set<T>().OrderByDescending(x => x.CreatedAt).ToListAsync();
             // Return entities
             return res;
         }
         catch (Exception ex)
         {
             // Log error
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
+            _logger.LogError(ex, "[BaseRepository][GetAllAsync] Error on base repository");
             // Throw exception
             throw new Exception(ex.Message);
         }
@@ -128,8 +125,7 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
         catch (Exception ex)
         {
             // Log error
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
+            _logger.LogError(ex, "[BaseRepository][GetAsync] Error on base repository");
             // Throw exception
             throw new Exception(ex.Message);
         }
@@ -171,8 +167,7 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
         catch (Exception ex)
         {
             // Log error
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
+            _logger.LogError(ex, "[BaseRepository][UpdateAsync] Error on base repository");
             // Throw exception
             throw new Exception(ex.Message);
         }
@@ -205,8 +200,7 @@ public class BaseRepository<T, TContext> : IGenericRepository<T>
         catch (Exception ex)
         {
             // Log error
-            _logger.LogError(ex.Message);
-            _logger.LogError(ex.StackTrace);
+            _logger.LogError(ex, "[BaseRepository][SoftDeleteAsync] Error on base repository");
             // Throw exception
             throw new Exception(ex.Message);
         }

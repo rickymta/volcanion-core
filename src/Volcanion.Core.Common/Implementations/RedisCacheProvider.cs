@@ -12,13 +12,13 @@ public class RedisCacheProvider(IConnectionMultiplexer connectionMultiplexer) : 
     private readonly IDatabase _database = connectionMultiplexer.GetDatabase();
 
     /// <inheritdoc/>
-    public async Task SetStringAsync(string key, string value)
+    public async Task SetStringAsync(string key, string value, double? expiry = 3600)
     {
-        await _database.StringSetAsync(key, value);
+        await _database.StringSetAsync(key, value, expiry: TimeSpan.FromSeconds(expiry!.Value));
     }
 
     /// <inheritdoc/>
-    public async Task<string> GetStringAsync(string key)
+    public async Task<string?> GetStringAsync(string key)
     {
         return await _database.StringGetAsync(key);
     }
@@ -30,7 +30,7 @@ public class RedisCacheProvider(IConnectionMultiplexer connectionMultiplexer) : 
     }
 
     /// <inheritdoc/>
-    public async Task<string> GetHashAsync(string key, string field)
+    public async Task<string?> GetHashAsync(string key, string field)
     {
         return await _database.HashGetAsync(key, field);
     }

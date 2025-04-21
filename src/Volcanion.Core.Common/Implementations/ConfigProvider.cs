@@ -11,7 +11,7 @@ public class ConfigProvider : IConfigProvider
     /// <summary>
     /// Logger
     /// </summary>
-    private ILogger<ConfigProvider> Logger { get; set; }
+    private ILogger<ConfigProvider> _logger { get; set; }
 
     /// <summary>
     /// Constructor
@@ -19,7 +19,7 @@ public class ConfigProvider : IConfigProvider
     /// <param name="logger"></param>
     public ConfigProvider(ILogger<ConfigProvider> logger)
     {
-        Logger = logger;
+        _logger = logger;
     }
 
     /// <inheritdoc/>
@@ -34,7 +34,7 @@ public class ConfigProvider : IConfigProvider
         }
         catch (Exception ex)
         {
-            Logger.LogError("error", ex.ToString());
+            _logger.LogError(ex, "[ConfigProvider][GetConfig] Error on provider");
             return null;
         }
     }
@@ -48,7 +48,7 @@ public class ConfigProvider : IConfigProvider
         }
         catch (Exception ex)
         {
-            Logger.LogError("error", ex.ToString());
+            _logger.LogError(ex, "[ConfigProvider][GetConfigString] Error on provider");
             return null;
         }
     }

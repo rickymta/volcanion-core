@@ -70,6 +70,11 @@ public class VolcanionJwtPayload
     public string Email { get; set; } = "";
 
     /// <summary>
+    /// Data
+    /// </summary>
+    public object? Data { get; set; }
+
+    /// <summary>
     /// Additional properties to convert UNIX timestamp to DateTime
     /// </summary>
     public DateTime ExpirationDate => DateTimeOffset.FromUnixTimeSeconds(Expiration).UtcDateTime;

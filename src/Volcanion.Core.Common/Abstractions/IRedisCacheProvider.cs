@@ -11,14 +11,14 @@ public interface IRedisCacheProvider
     /// <param name="key"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    Task SetStringAsync(string key, string value);
+    Task SetStringAsync(string key, string value, double? expiry = 3600);
 
     /// <summary>
     /// GetStringAsync
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    Task<string> GetStringAsync(string key);
+    Task<string?> GetStringAsync(string key);
 
     /// <summary>
     /// SetHashAsync
@@ -35,7 +35,7 @@ public interface IRedisCacheProvider
     /// <param name="key"></param>
     /// <param name="field"></param>
     /// <returns></returns>
-    Task<string> GetHashAsync(string key, string field);
+    Task<string?> GetHashAsync(string key, string field);
 
     /// <summary>
     /// KeyExistsAsync

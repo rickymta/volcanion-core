@@ -15,17 +15,17 @@ public class ExcMidResult
     /// <summary>
     /// ErrorStatus
     /// </summary>
-    public string ErrorStatus { get; set; }
+    public string ErrorStatus { get; set; } = null!;
 
     /// <summary>
     /// ErrorMessage
     /// </summary>
-    public string ErrorMessage { get; set; }
+    public string ErrorMessage { get; set; } = null!;
 
     /// <summary>
     /// ErrorDetails
     /// </summary>
-    public string ErrorDetails { get; set; }
+    public string ErrorDetails { get; set; } = null!;
 
     /// <summary>
     /// StackTrace

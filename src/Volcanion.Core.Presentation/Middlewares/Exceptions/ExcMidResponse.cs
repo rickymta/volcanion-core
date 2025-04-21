@@ -7,5 +7,5 @@
     /// <param name="ErrorStatus"></param>
     /// <param name="ErrorMessage"></param>
     /// <param name="StackTrace"></param>
-    public record ExcMidResponse(string ErrorCode, string ErrorStatus, object ErrorMessage, string StackTrace = null);
+    public record ExcMidResponse(string ErrorCode, string ErrorStatus, object ErrorMessage, string StackTrace = "");
 }
