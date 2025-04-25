@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Net;
 using System.Text.Json;
-using Volcanion.Core.Presentation.Middlewares.Exceptions;
+using Volcanion.Core.Models.Exceptions;
 
 namespace Volcanion.Core.Presentation.Middlewares;
 

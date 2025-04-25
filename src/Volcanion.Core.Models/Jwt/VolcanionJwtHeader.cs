@@ -1,4 +1,6 @@
-﻿namespace Volcanion.Core.Models.Jwt;
+﻿using Newtonsoft.Json;
+
+namespace Volcanion.Core.Models.Jwt;
 
 /// <summary>
 /// JwtHeader
@@ -8,10 +10,12 @@ public class VolcanionJwtHeader
     /// <summary>
     /// JWT type
     /// </summary>
+    [JsonProperty("typ")]
     public string Type { get; set; } = "JWT";
 
     /// <summary>
     /// Encryption algorithm
     /// </summary>
+    [JsonProperty("alg")]
     public string Algorithm { get; set; } = "RS512";
 }

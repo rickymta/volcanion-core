@@ -18,6 +18,7 @@ public static class ProviderRegister
         services.AddTransient<IConfigProvider, ConfigProvider>();
         services.AddTransient<ICookieProvider, CookieProvider>();
         services.AddTransient<IHashProvider, HashProvider>();
+        services.AddTransient<IJwtProvider, JwtProvider>();
         services.AddTransient<ISafeThreadProvider, SafeThreadProvider>();
         services.AddTransient<IStringProvider, StringProvider>();
         services.AddTransient<IMemCacheProvider, MemCacheProvider>();

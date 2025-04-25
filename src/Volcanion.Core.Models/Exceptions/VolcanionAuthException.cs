@@ -1,4 +1,4 @@
-﻿namespace Volcanion.Core.Presentation.Middlewares.Exceptions;
+﻿namespace Volcanion.Core.Models.Exceptions;
 
 /// <summary>
 /// VolcanionAuthException
